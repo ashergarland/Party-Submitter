@@ -1,18 +1,29 @@
 var data = require("../data.json");
 
-exports.addFriend = function(req, res) {    
+exports.addSong= function(req, res) {    
 	// Your code goes here
-	var newFriend = {
+	var newSong = {
 		name: req.query.name,
-		description: req.query.description,
-		imageURL: "http://lorempixel.com/400/400/people"
+		link: req.query.link
 	};
 
-	console.log(newFriend);
+	console.log(newSong);
 
-	data["friends"].push(newFriend);
+	data["songs"].push(newSong);
 
-	res.render('add', {
-		'newFriend': newFriend
-	});
+	res.redirect('/');
+ }
+
+exports.addPlayers= function(req, res) {    
+	// Your code goes here
+	var newPlayers = {
+		player1: req.query.player1,
+		player2: req.query.player2
+	};
+
+	console.log(newPlayers);
+
+	data["players"].push(newPlayers);
+
+	res.redirect('/');
  }

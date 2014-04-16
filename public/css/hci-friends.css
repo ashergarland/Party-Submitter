@@ -1,3 +1,50 @@
+span, p {
+	color: #FFFFFF;
+}
+
+body { 
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center; 
+	background-color: #FFFFFF;
+
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+#youtube-submit-form {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5%;
+	width: 800px;
+	background-color: rgba(0,0,0,0.7);
+	border-radius: 25px;
+}
+
+#name-input, #link-input {
+	background-color:transparent;
+	color: #FFFFFF;
+	border-color: #FFFFFF;
+	border-radius: 25px;
+}
+
+#song-add-btn {
+	color: #FFFFFF;
+	background-color: rgba(0, 0, 0, 0);
+	border-color: #FFFFFF;
+	border-radius: 15px
+}
+#song-add-btn:hover {
+	color: #000000;
+}
+#song-add-btn:active {
+	color: #FFFFFF;
+	background-color: #000000;
+	border-color: #000000;
+}
+
 /* applies to anything of class "example-class-selector" */
 .example-class-selector {
 	margin-top: 2em;
@@ -10,10 +57,14 @@
 }
 
 h1, h2, h3, h4, h5 {
-	color: #8382BF;
+	color: #FFFFFF;
 }
 
 div.friends
 {
 	width: 250px;
+}
+
+table {
+	color: #FFFFFF;
 }
