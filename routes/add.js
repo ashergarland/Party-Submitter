@@ -7,9 +7,9 @@ exports.addSong= function(req, res) { 
 		link: req.query.link
 	};
 
-	console.log(newSong);
-
 	data["songs"].push(newSong);
+
+	console.log(data);
 
 	res.redirect('/');
  }
@@ -21,9 +21,9 @@ exports.addPlayers= function(req, res) { 
 		player2: req.query.player2
 	};
 
-	console.log(newPlayers);
-
 	data["players"].push(newPlayers);
+
+	console.log(data);
 
 	res.redirect('/');
  }
@@ -34,9 +34,9 @@ exports.addImg= function(req, res) { 
 		link: req.query.img
 	};
 
-	console.log(newImg);
-
 	data["backgrounds"].push(newImg);
+
+	console.log(data);
 
 	res.redirect('/');
  }

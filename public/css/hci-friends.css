@@ -1,6 +1,12 @@
-span, p {
+span, p, a {
+	color: #FFFFFF;
+	font-size: 16px;
+}
+
+a:hover {
 	color: #FFFFFF;
 }
+
 
 body { 
 	background-repeat: no-repeat;
