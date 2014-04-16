@@ -13,46 +13,88 @@
 	],
 	"backgrounds": [
 		{
-			"link": "420.jpg"
+			"link": "../images/420.jpg"
 		},
 		{
-			"link": "ifeelit.jpg"
+			"link": "../images/ifeelit.jpg"
 		},
 		{
-			"link": "trippygrass.jpg"
+			"link": "../images/trippygrass.jpg"
 		},
 		{
-			"link": "joints.jpg"
+			"link": "../images/joints.jpg"
 		},
 		{
-			"link": "weedjars.jpg"
+			"link": "../images/weedjars.jpg"
 		},
 		{
-			"link": "coachella.jpg"
+			"link": "../images/coachella.jpg"
 		},
 		{
-			"link": "morgan.jpg"
+			"link": "../images/morgan.jpg"
 		},
 		{
-			"link": "graffiti.jpg"
+			"link": "../images/graffiti.jpg"
 		},
 		{
-			"link": "hotgirlsmoking1.jpg"
+			"link": "../images/hotgirlsmoking1.jpg"
 		},
 		{
-			"link": "hotgirlsmoking2.jpg"
+			"link": "../images/hotgirlsmoking2.jpg"
 		},
 		{
-			"link": "hotgirlsmoking3.jpg"
+			"link": "../images/hotgirlsmoking3.jpg"
 		},
 		{
-			"link": "girlkiss.jpg"
+			"link": "../images/girlkiss.jpg"
 		},
 		{
-			"link": "hotgirlsmoking5.jpg"
+			"link": "../images/hotgirlsmoking5.jpg"
 		},
 		{
-			"link": "hotgirlsmoking4.jpg"
+			"link": "../images/hotgirlsmoking4.jpg"
+		},
+		{
+			"link": "../images/hotgirlsmoking6.jpg"
+		},
+		{
+			"link": "../images/hotgirlsmoking7.jpg"
+		},
+		{
+			"link": "../images/hotgirlsmoking8.jpg"
+		},
+		{
+			"link": "../images/hotgirlsmoking9.jpg"
+		},
+		{
+			"link": "../images/hotgirlsmoking10.jpg"
+		},
+		{
+			"link": "../images/hotgirlsmoking11.jpg"
+		},
+		{
+			"link": "../images/hotgirlsmoking12.jpg"
+		},
+		{
+			"link": "../images/glasspip.png"
+		},
+		{
+			"link": "../images/eye.jpg"
+		},
+		{
+			"link": "../images/lipsandweed.jpg"
+		},
+		{
+			"link": "../images/tonofweed.jpg"
+		},
+		{
+			"link": "../images/weed.jpg"
+		},
+		{
+			"link": "../images/wiz.jpg"
+		},
+		{
+			"link": "../images/justblaze.jpg"
 		}
 	]
 }

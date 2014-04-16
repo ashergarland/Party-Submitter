@@ -27,3 +27,16 @@ exports.addPlayers= function(req, res) { 
 
 	res.redirect('/');
  }
+
+exports.addImg= function(req, res) {    
+	// Your code goes here
+	var newImg = {
+		link: req.query.img
+	};
+
+	console.log(newImg);
+
+	data["backgrounds"].push(newImg);
+
+	res.redirect('/');
+ }
