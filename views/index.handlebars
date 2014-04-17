@@ -23,6 +23,10 @@
 		<div id='youtube-submit-form' class='container'>
 			<h1 style='text-align:center;'>Happy Easter 4/20 Praise It!</h1>
 
+			<div id='player' class='container'>
+
+			</div>
+
 			<h3 style='text-align:center;'>PraiseList</h3>
 		
 			<form class="form-inline" role="form" method="get" action="/addSong" style="margin-bottom:15px;">
@@ -40,7 +44,7 @@
 				{{#each songs}}
 				<tr>
 					<td>{{name}}</td>
-					<td><a href="{{link}}" target="_blank">{{link}}</a></td>
+					<td><a href="{{link}}" class='song_link' target="_blank">{{link}}</a></td>
 				</tr>
 				{{/each}}
 

@@ -7,6 +7,25 @@ a:hover {
 	color: #FFFFFF;
 }
 
+#player {
+	display: none;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+#player > iframe {
+	padding: 10px;
+	background-color: rgba(0,0,0,0.7);
+	border: 2px solid #FFFFFF;
+	border-radius: 25px;
+}
+
+#player_remove {
+	vertical-align: top;
+	cursor: pointer;
+}
 
 body { 
 	background-repeat: no-repeat;
