@@ -1,3 +1,7 @@
+html {
+    overflow-y: scroll;
+}
+
 span, p, a {
 	color: #FFFFFF;
 	font-size: 16px;
@@ -5,6 +9,10 @@ span, p, a {
 
 a:hover {
 	color: #FFFFFF;
+}
+
+#main_container {
+	display: none;
 }
 
 #player {

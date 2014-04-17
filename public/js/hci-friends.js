@@ -2,18 +2,18 @@
 
 // Call this function when the page loads (the "ready" event)
 $(document).ready(function() {
-	initializePage();
-});
-
-$(".friends a").click(function(e) {
-	e.preventDefault();
-	$(this).text(anagrammedName($(this).text()));
+	$('body').ready(function() {
+		console.log('load complete');
+		initializePage();
+	});
 });
 
 /*
  * Function that is called when the document is ready.
  */
 function initializePage() {
+	$('#main_container').delay( 600 ).fadeIn(1000);
+
 	$('.song_link').click(function(e) {
 		console.log('link clicked');
 
