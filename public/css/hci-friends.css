@@ -63,23 +63,23 @@ body {
 	border-radius: 25px;
 }
 
-#name-input, #link-input {
+.form-add input {
 	background-color:transparent;
 	color: #FFFFFF;
 	border-color: #FFFFFF;
 	border-radius: 25px;
 }
 
-#song-add-btn {
+.add-btn {
 	color: #FFFFFF;
 	background-color: rgba(0, 0, 0, 0);
 	border-color: #FFFFFF;
 	border-radius: 15px
 }
-#song-add-btn:hover {
+.add-btn:hover {
 	color: #000000;
 }
-#song-add-btn:active {
+.add-btn:active {
 	color: #FFFFFF;
 	background-color: #000000;
 	border-color: #000000;

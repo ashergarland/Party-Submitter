@@ -29,17 +29,17 @@
 
 			<h3 style='text-align:center;'>PraiseList</h3>
 		
-			<form class="form-inline" role="form" method="get" action="/addSong" style="margin-bottom:15px;">
+			<form class="form-inline form-add" style="margin-bottom:15px;">
 				<div class="form-group col-md-5">
 					<input type="text" class="form-control" name="name" id="name-input" placeholder="Wayvee x Lunice x Wiz Khalifa - No Stress" required>
 				</div>
 				<div class="form-group col-md-6">
 					<input type="text" class="form-control" name="link" id="link-input" placeholder="http://youtu.be/PCXO0r2DFRg" required>
 				</div>
-				<button type="submit" id='song-add-btn' class="btn btn-md">ADD</button>
+				<button id='song-add-btn' class="add-btn btn btn-md">ADD</button>
 			</form>
 
-			<table class="table">
+			<table class="table" id='song-table'>
 
 				{{#each songs}}
 				<tr>
@@ -53,18 +53,18 @@
 
 		<h3 style='text-align:center;'>BP Prayers</h3>
 		
-			<form class="form-inline" role="form" method="get" action="/addPlayers" style="margin-bottom:15px;">
+			<form class="form-inline form-add" style="margin-bottom:15px;">
 				<div class="form-group col-md-5">
-					<input type="text" class="form-control" name="player1" id="name-input" placeholder="Player 1 Name" required>
+					<input type="text" class="form-control" name="player1" id="player1-input" placeholder="Player 1 Name" required>
 				</div>
 				<div class="form-group col-md-6">
-					<input type="text" class="form-control" name="player2" id="link-input" placeholder="Player 2 Name" required>
+					<input type="text" class="form-control" name="player2" id="player2-input" placeholder="Player 2 Name" required>
 				</div>
-				<button type="submit" id='song-add-btn' class="btn btn-md">ADD</button>
+				<button id='player-add-btn' class="add-btn btn btn-md">ADD</button>
 			</form>
 
 
-			<table class="table">
+			<table class="table" id='player-table'>
 
 				{{#each players}}
 				<tr>
@@ -81,6 +81,10 @@
 
 	<script src="/js/jquery-1.11.0.js"></script>
 	<script src="/js/bootstrap.js"></script>
+	<script src="http://www.youtube.com/player_api"></script>
+	<script src="http://connect.soundcloud.com/sdk.js"></script>
+	<script src="https://w.soundcloud.com/player/api.js"></script>
+	<script src="/js/soundcloud-widget.js"></script>
 	<script src="/js/hci-friends.js"></script>
 </body>
 </html>

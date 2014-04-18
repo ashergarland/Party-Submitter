@@ -37,8 +37,8 @@ if ('development' == app.get('env')) {
 
 // Add routes here
 app.get('/', index.view);
-app.get('/addSong', add.addSong);
-app.get('/addPlayers', add.addPlayers);
+app.post('/addSong', add.addSong);
+app.post('/addPlayers', add.addPlayers);
 app.get('/addImg', add.addImg);
 // Example route
 // app.get('/users', user.list);
