@@ -8,6 +8,8 @@ $(document).ready(function() {
 		  client_id: '554b59147b860fbd58a7d2c34ed84515'
 		});
 	});
+
+	var library = new SongLibrary();
 });
 
 /*
@@ -15,7 +17,7 @@ $(document).ready(function() {
  */
 function initializePage() {
 	$('#main_container').delay( 600 ).fadeIn(1000);
-
+	
 	$('.song_link').click(function(e) {
 		var src = $(this).attr("href");
 
@@ -38,6 +40,8 @@ function initializePage() {
 
 	console.log("Javascript connected!");
 }
+
+
 function parseYoutubeId(url){
     if(url.indexOf('?') != -1 ) {
         var query = decodeURI(url).split('?')[1];
@@ -51,6 +55,8 @@ function parseYoutubeId(url){
     return null;
 }
 
+/*
+// Old way to do youtube video -- doesn't allow to check if song has finished
 function embedYoutube(id) {
 	var src = '//www.youtube.com/embed/' + id;
 	$('#player').html('<iframe width="560" height="315" src="' + src + '?autoplay=1" frameborder="0" allowfullscreen></iframe>');
@@ -58,26 +64,33 @@ function embedYoutube(id) {
 	$('#player_remove').click(hidePlayer);
 	displayPlayer();
 }
+*/
 
-/*
-// create youtube player
 function embedYoutube(id) {
-	$('#player').html("").append(
-	    $('<iframe>')
-	    .attr('id', "player_iframe")
-	);
-    var player = new YT.Player('player_iframe', {
-      height: '315',
-      width: '560',
-      videoId: id,
-      events: {
-        'onReady': youtube_onPlayerReady,
-        'onStateChange': youtube_onPlayerStateChange
-      }
-    });
+	onYouTubeIframeAPIReady(id);
+
     $('#player').append('<span id="player_remove" class="glyphicon glyphicon-remove"></span>');
 	$('#player_remove').click(hidePlayer);
 	displayPlayer();
+}
+
+function onYouTubeIframeAPIReady(video_id) {
+	var iframe_id = 'player_iframe';
+
+	var iframe = $('#player').html("").append(
+	    $('<div>')
+	    .attr('id', iframe_id)
+	);
+
+	var player = new YT.Player(iframe_id, {
+		height: '315',
+		width: '560',
+		videoId: video_id,
+		events: {
+			'onReady': youtube_onPlayerReady,
+			'onStateChange': youtube_onPlayerStateChange
+		}
+	});
 }
 
 // autoplay video
@@ -91,7 +104,6 @@ function youtube_onPlayerStateChange(event) {
         alert('done');
     }
 }
-*/
 
 
 function embedSoundCloud(src) {
@@ -161,6 +173,8 @@ function addSong(e) {
 	// Clear input
 	$('#name-input').val('');
 	$('#link-input').val('');
+	// Set the button state to loading
+	$('song-add-btn').button('loading');
 	// Structure the data
 	var data = { 
 		name: name, 
@@ -168,6 +182,8 @@ function addSong(e) {
 	};
 	// Perform post
     $.post('/addSong', data, function(res) {
+    	// Reset button state
+    	$('song-add-btn').button('reset');
     	// Append new row
     	var row = createTableRow(name, urlToSongLink(link).wrap('<p/>').parent().html());
     	row.appendTo($('#song-table'));
@@ -186,6 +202,8 @@ function addPlayers(e) {
 	// Clear input 
 	$('#player1-input').val('');
 	$('#player2-input').val('');
+	// Set the button state to loading
+	$('player-add-btn').button('loading');
 	// Structure the data
 	var data = { 
 		player1: player1, 
@@ -193,6 +211,8 @@ function addPlayers(e) {
 	};
 	// Perform post
     $.post('/addPlayers', data, function(res) {
+    	// Reset button state
+    	$('player-add-btn').button('reset');
     	// Append the new row
     	var row = createTableRow(player1, player2);
     	row.appendTo($('#player-table'));
