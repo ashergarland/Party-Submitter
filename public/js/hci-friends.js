@@ -14,23 +14,21 @@ function initializePage() {
 	$('#main_container').delay( 600 ).fadeIn(1000);
 
 	$('.song_link').click(function(e) {
-		console.log('link clicked');
-
 		var src = $(this).attr("href");
-		if (src.search("soundcloud") != -1) {
-			console.log('displaying soundcloud');
 
+		if (src.search("soundcloud") != -1) {
 			e.preventDefault();
-			embedSoundCloud(src);
+			$('html,body').animate({ scrollTop: 0 }, 'slow', function () {
+				embedSoundCloud(src);
+			});
 		}
 		else if (src.search("youtu") != -1) {
-			console.log('displaying youtube');
-
 			e.preventDefault();
-			embedYoutube( parseYoutubeId(src) );
+			$('html,body').animate({ scrollTop: 0 }, 'slow', function () {
+				embedYoutube( parseYoutubeId(src) );
+			});
 		}
 	});
-
 
 	console.log("Javascript connected!");
 }
