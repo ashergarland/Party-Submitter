@@ -2,8 +2,7 @@
 
 // Call this function when the page loads (the "ready" event)
 $(document).ready(function() {
-	$('body').ready(function() {
-		console.log('load complete');
+	$(window).load(function() {
 		initializePage();
 	});
 });
