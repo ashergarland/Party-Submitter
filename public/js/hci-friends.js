@@ -1,46 +1,129 @@
 'use strict';
 
+var library;
 // Call this function when the page loads (the "ready" event)
 $(document).ready(function() {
 	$(window).load(function() {
+		library = instantiateLibrary();
 		initializePage();
-		SC.initialize({
-		  client_id: '554b59147b860fbd58a7d2c34ed84515'
-		});
 	});
-
-	var library = new SongLibrary();
 });
 
 /*
  * Function that is called when the document is ready.
  */
 function initializePage() {
+	// Fade in the content after the page background picture is fully loaded -- looks hella cool
 	$('#main_container').delay( 600 ).fadeIn(1000);
-	
-	$('.song_link').click(function(e) {
-		var src = $(this).attr("href");
 
-		if (src.search("soundcloud") != -1) {
-			e.preventDefault();
-			$('html,body').animate({ scrollTop: 0 }, 'slow', function () {
-				embedSoundCloud(src);
-			});
-		}
-		else if (src.search("youtu") != -1) {
-			e.preventDefault();
-			$('html,body').animate({ scrollTop: 0 }, 'slow', function () {
-				embedYoutube( parseYoutubeId(src) );
-			});
-		}
-	});
+	// Add music link click handler
+	$('.song_link').click(onVideoLinkClick);
 
+	// Add add button click handler
 	$('#song-add-btn').click(addSong);
 	$('#player-add-btn').click(addPlayers);
 
 	console.log("Javascript connected!");
 }
 
+function instantiateLibrary() {
+	var library = {};
+
+	library.songs = {};
+	var links = $('#song-table').find('a');
+	links.each(function(index, Element) {
+		library.songs[$(this).attr('href')] = index;
+	});
+
+	library.current = -1;
+
+	library.size = links.length;
+
+	library.loop = true;
+
+	library.autoplay = true;
+
+	library.add = function (url) {
+		if (this.songs[url] != undefined) { 
+			return false;
+		}
+		this.songs[url] = this.size;
+		this.size = this.size + 1;
+		return true;
+	}
+
+	library.remove = function(url) {
+		if (this.songs[url] == undefined) {
+			return false;
+		}
+		delete this.songs[url];
+		this.size = this.size - 1;
+	}
+
+	library.setCurrent = function (url) {
+		if (this.songs[url] == undefined) {
+			return false;
+		}
+		this.current = this.songs[url];
+	}
+
+	library.getNext = function () {
+		if (this.autoplay == false) {
+			return false;
+		}
+		
+		// If at end then return the first
+		if (this.current == this.size - 1) {
+			if (this.loop == true) {
+				for (var track in this.songs) {
+					return track;
+				}
+			}
+			return false;
+		}
+
+		// Find next track
+		var flag = false;
+		for (var track in this.songs) {
+			// If flag is set then return this track
+			if (flag == true) {
+				return track;
+			}
+			// If track is the current, then set the flag to return the next track
+			if (this.songs[track] == this.current) {
+				flag = true;
+			}
+		}
+
+		return false;
+	}
+
+	return library;
+}
+
+function onVideoLinkClick(e) {
+	var src = $(this).attr("href");
+
+	if (src.search("soundcloud") != -1) {
+		e.preventDefault();
+		library.setCurrent(src);
+		makeRowCurrent($(this).parents('tr'));
+		$('html,body').animate({ scrollTop: 0 }, 'slow', function () {
+			embedSoundCloud(src);
+		});
+	}
+else if (src.search("youtu") != -1) {
+		e.preventDefault();
+		library.setCurrent(src);
+		makeRowCurrent($(this).parents('tr'));
+		$('html,body').animate({ scrollTop: 0 }, 'slow', function () {
+			embedYoutube( parseYoutubeId(src) );
+		});
+	}
+	else {
+		library.current = -1;
+	}
+}
 
 function parseYoutubeId(url){
     if(url.indexOf('?') != -1 ) {
@@ -67,10 +150,12 @@ function embedYoutube(id) {
 */
 
 function embedYoutube(id) {
+	// Instantiate the youtube player
 	onYouTubeIframeAPIReady(id);
-
+	// Append the player remove button
     $('#player').append('<span id="player_remove" class="glyphicon glyphicon-remove"></span>');
 	$('#player_remove').click(hidePlayer);
+	// Display the player
 	displayPlayer();
 }
 
@@ -101,11 +186,11 @@ function youtube_onPlayerReady(event) {
 // when video ends
 function youtube_onPlayerStateChange(event) {        
     if(event.data === 0) {          
-        alert('done');
+        playNext();
     }
 }
 
-
+/*
 function embedSoundCloud(src) {
 	$.getJSON('http://soundcloud.com/oembed?callback=?',
     {format: 'js', url: src, iframe: true, maxheight: 305, maxwidth: 560, auto_play: true},
@@ -118,36 +203,29 @@ function embedSoundCloud(src) {
 	    }
 	)
 }
-
-/*
-function embedSoundCloud(src) {
-	var iframe = "player_iframe";
-
-	$('#player').html("").append(
-	    $('<iframe>')
-	    .attr('id', iframe)
-	);
-
-	// permalink to a track
-	var track_url = src;
-
-	SC.get('/resolve', { url: track_url }, function(track) {
-		var embedUrl = 'http://api.soundcloud.com/tracks/' + track.id;
-		var widget	= SC.Widget(iframe);
-	    widget.bind(SC.Widget.Events.READY, function() {
-	      	// load new widget
-	      	widget.bind(SC.Widget.Events.FINISH, function() {
-				widget.load(embedUrl, {
-					auto_play: true
-				});
-	      	});
-   	 	});
-	});
-	$('#player').append('<span id="player_remove" class="glyphicon glyphicon-remove"></span>');
-	$('#player_remove').click(hidePlayer);
-    displayPlayer();
-}
 */
+
+function embedSoundCloud(src) {
+	$.getJSON('http://soundcloud.com/oembed?callback=?',
+    {format: 'js', url: src, iframe: true, maxheight: 305, maxwidth: 560, auto_play: true},
+	    function(data) {
+	        // Stick the html content returned in the object into the page
+	        var player = $('#player').html(data['html']);
+	        // Define the soundcloud widget
+	        player.children('iframe').attr('id', 'player_iframe');
+	        var widget = SC.Widget('player_iframe');
+	        // Bind the on finish event to play the next song
+	        widget.bind(SC.Widget.Events.FINISH, function() {
+				playNext();
+			});
+			// Append the remove player button
+	        $('#player').append('<span id="player_remove" class="glyphicon glyphicon-remove"></span>');
+			$('#player_remove').click(hidePlayer);
+			// Display the player
+	        displayPlayer();
+	    }
+	)
+}
 
 function displayPlayer() {
 	if ($('#player').is(":visible")){
@@ -180,6 +258,11 @@ function addSong(e) {
 		name: name, 
 		link: link
 	};
+	// check if duplicate
+	if (library.add(link) == false) {
+		alert("Duplicate");
+		return;
+	}
 	// Perform post
     $.post('/addSong', data, function(res) {
     	// Reset button state
@@ -187,6 +270,8 @@ function addSong(e) {
     	// Append new row
     	var row = createTableRow(name, urlToSongLink(link).wrap('<p/>').parent().html());
     	row.appendTo($('#song-table'));
+    	// Add video link on click handler
+    	row.find('a').click(onVideoLinkClick);
     	// Scroll to new row
     	$('html, body').animate({
 	        scrollTop: row.offset().top
@@ -209,6 +294,11 @@ function addPlayers(e) {
 		player1: player1, 
 		player2: player2
 	};
+	// check if duplicate
+	if (library.add(link) == false) {
+		alert("Duplicate");
+		return;
+	}
 	// Perform post
     $.post('/addPlayers', data, function(res) {
     	// Reset button state
@@ -226,19 +316,54 @@ function addPlayers(e) {
 function createTableRow() {
 	var row = $('<tr></tr>');
 	for (var i = 0; i < arguments.length; i++) {
-		console.log('argument ' + i + " :" + arguments[i]);
 		var column = $('<td>' + arguments[i] +'</td>').appendTo(row);
-		console.log(column);
   	}
-  	console.log(row);
   	return row
 }
 
 function urlToSongLink(url) {
+	// Create the link jquery element
 	var a = $('<a>', {
 		class: 'song_link',
 		href: url,
 		target: '_blank'
 	}).html(url);
+
 	return a;
+}
+
+function makeRowCurrent(row) {
+	if (row == null || row == undefined) {
+		$('.current').removeClass('current');
+		return;
+	}
+	$('.current').removeClass('current');
+	row.addClass('current');
+}
+
+function playNext() {
+	var next_src = library.getNext();
+	if (next_src == false) {
+		makeRowCurrent(null);
+		return;
+	}
+
+	if (next_src.search("soundcloud") != -1) {
+		library.setCurrent(next_src);
+		var row = $('#song-table').find('tr').get(library.current);
+		console.log($(row));
+		makeRowCurrent($(row));
+		embedSoundCloud(next_src);
+	}
+	else if (next_src.search("youtu") != -1) {
+		library.setCurrent(next_src);
+		var row = $('#song-table').find('tr').get(library.current);
+		console.log($(row));
+		makeRowCurrent($(row));
+		embedYoutube( parseYoutubeId(next_src) );
+	}
+	else {
+		library.current = -1;
+		makeRowCurrent(null);
+	}
 }
