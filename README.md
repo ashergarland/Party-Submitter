@@ -1,1 +1,1 @@
-4/20 Party Submission Web App
+Silly Party Submission Web App for songs and beer pong queue
